@@ -9,8 +9,8 @@
       {{ member.name }}
     </h4>
     <div class="links">
-      <a :href="link" class="link" v-for="(link, key) in member.links" target="_blank">
-        <i :class="key|toFontAwesome"></i>
+      <a :href="link.url" class="link" v-for="(link, key) in member.links" target="_blank">
+        <i :class="link.key|toFontAwesome"></i>
       </a>
     </div>
   </div>
