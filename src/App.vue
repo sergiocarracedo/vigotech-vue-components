@@ -1,28 +1,42 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <vigotech-member-list :members="vigotech.members"></vigotech-member-list>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import VigotechMemberList from './components/VigotechMemberList'
+import axios from 'axios'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    VigotechMemberList,
+  },
+  data() {
+    return {
+      vigotech: {},
+    }
+  },
+  methods: {
+    getMembers() {
+      axios.get(process.env.VUE_APP_VIGOTECH_MEMBERS_SOURCE)
+          .then(response => {
+            this.vigotech = response.data
+          })
+          .catch(response => {
+            alert(response.data)
+          })
+    }
+  },
+  mounted () {
+    this.getMembers()
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  body {
+    font-family: 'Raleway', sans-serif;
+  }
 </style>
